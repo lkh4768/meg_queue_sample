@@ -6,16 +6,11 @@
 #include <string>
 #include <stdexcept>
 
-struct q_entry
-{
-	long mtype;
-	char mtext[50];
-};
-
 class Message
 {
 	private:
-		struct q_entry msg;
+		std::string text_;
+		int priority_;
 	public:
 		static const int MAX_PRIORITY;
 		static const int MAX_TEXT_LEN;
@@ -25,7 +20,7 @@ class Message
 		bool check_text_len(const int text_len);
 		int get_priority();
 		std::string get_text();
-		struct q_entry* get_msg();
+		int get_text_len();
 };
 
 #endif

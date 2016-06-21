@@ -38,7 +38,7 @@ TEST_F(PriorityMsgQueueTest, push_test)
 	}
 	catch(std::exception e)
 	{
-		printf("init test - %s\n", e.what());
+		printf("push test - %s\n", e.what());
 		exit(1);
 	}
 
@@ -49,7 +49,7 @@ TEST_F(PriorityMsgQueueTest, push_test)
 	}
 	catch(std::exception e)
 	{
-		printf("%s\n", e.what());
+		printf("push test - %s\n", e.what());
 		exit(1);
 	}
 

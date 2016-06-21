@@ -19,12 +19,12 @@ class PriorityMsgQueue
 	private:
 		int id;
 		const key_t key;
-		const mode_t mode;
+		const int mode;
 	public:
 		PriorityMsgQueue();
 		void init();
 		void push(Message* msg);
-		Message* pop();
+		void pop(Message& rev_msg);
 		int get_id();
 };
 

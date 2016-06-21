@@ -1,5 +1,5 @@
 #include "q.h"
-;
+
 void warn(char* s)
 {
 	fprintf(stderr, "warning: %s\n", s);
