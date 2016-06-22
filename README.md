@@ -1,6 +1,6 @@
 priority message queue
 
-- important
+- position important
 
 -> incorrect
 struct q_entry
