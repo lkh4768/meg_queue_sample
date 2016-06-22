@@ -2,25 +2,34 @@
 #define MESSAGE_H
 
 #include <cstring>
+#include <cstdio>
 
-#include <string>
 #include <stdexcept>
+
+#define MAXTEXT	50
+
+struct q_entry
+{
+	long mtype;
+	char mtext[MAXTEXT];
+};
 
 class Message
 {
 	private:
-		std::string text_;
-		int priority_;
+		struct q_entry msg;
 	public:
-		static const int MAX_PRIORITY;
+		static const long MAX_PRIORITY;
 		static const int MAX_TEXT_LEN;
 		Message();
-		Message(const int priority, std::string text);
-		bool check_priority(const int priority);
+		Message(const long priority, const char* text);
+		bool check_priority(const long priority);
 		bool check_text_len(const int text_len);
-		int get_priority();
-		std::string get_text();
+		struct q_entry* get_msg();
+		long get_priority();
+		char* get_text();
 		int get_text_len();
+		void print();
 };
 
 #endif

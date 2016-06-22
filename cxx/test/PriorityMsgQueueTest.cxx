@@ -21,7 +21,7 @@ TEST_F(PriorityMsgQueueTest, init_test)
 	{
 		priority_msg_queue.init();
 	}
-	catch(std::exception e)
+	catch(const std::exception& e)
 	{
 		printf("init test - %s", e.what());
 		exit(1);
@@ -36,49 +36,57 @@ TEST_F(PriorityMsgQueueTest, push_test)
 	{
 		priority_msg_queue.init();
 	}
-	catch(std::exception e)
+	catch(const std::exception& e)
 	{
 		printf("push test - %s\n", e.what());
 		exit(1);
 	}
 
-	Message smsg(3, "test msg");
+	Message smsg(3, "test_msg");
 	try
 	{
-		priority_msg_queue.push(&smsg);
+		priority_msg_queue.push(smsg);
 	}
-	catch(std::exception e)
+	catch(const std::exception& e)
 	{
 		printf("push test - %s\n", e.what());
 		exit(1);
 	}
 
 	Message rmsg;
-	struct q_entry tmp;
-	printf("id : %d\n", priority_msg_queue.get_id());
-	msgrcv(priority_msg_queue.get_id(), &tmp, Message::MAX_TEXT_LEN, (-1 * Message::MAX_PRIORITY), MSG_NOERROR);
-	printf("recive fin\n");
+	int nrcv = msgrcv(priority_msg_queue.get_id(), rmsg.get_msg(), Message::MAX_TEXT_LEN, (-1 * Message::MAX_PRIORITY), MSG_NOERROR);
 
-	ASSERT_STREQ(smsg.get_text().c_str(), rmsg.get_text().c_str());
+	rmsg.get_text()[nrcv] = '\0';
+	ASSERT_STREQ(smsg.get_text(), rmsg.get_text());
 	ASSERT_EQ(smsg.get_priority(), rmsg.get_priority());
 }
-/*
+
 TEST_F(PriorityMsgQueueTest, pop_test)
 {
-	Message smsg(1, "test msg");
-	msgsnd(priority_msg_queue.get_id(), &msg, msg_text_len, 0)
 	try
 	{
-		Message* rmsg();
-		rmsg = priority_msg_queue.pop();
+		priority_msg_queue.init();
 	}
-	catch(std::exception e)
+	catch(const std::exception& e)
 	{
-		printf("%s", e.what());
+		printf("push test - %s\n", e.what());
+		exit(1);
+	}
+
+	Message smsg(1, "test_msg");
+	msgsnd(priority_msg_queue.get_id(), smsg.get_msg(), smsg.get_text_len(), 0);
+
+	Message rmsg;
+	try
+	{
+		priority_msg_queue.pop(rmsg);
+	}
+	catch(const std::exception& e)
+	{
+		printf("pop test - %s", e.what());
 		exit(1);
 	}
 
 	ASSERT_STREQ(smsg.get_text(), rmsg.get_text());
 	ASSERT_EQ(smsg.get_priority(), rmsg.get_priority());
 }
-*/

@@ -1,4 +1,3 @@
-#include "../Message.hxx"
 #include "../PriorityMsgQueue.hxx"
 
 #include <cstdio>
@@ -29,9 +28,9 @@ int main(int argn ,char** argv)
 		exit(1);
 	}
 
-	Message msg(*argv[2] - '0', argv[1]);
+	Message msg(atoi(argv[2]), argv[1]);
 
-	priority_msg_q.push(&msg);
+	priority_msg_q.push(msg);
 
 	return 0;
 }

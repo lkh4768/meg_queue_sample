@@ -19,9 +19,11 @@ int main()
 	}
 
 	Message msg;
-	msgrcv(priority_msg_q.get_id(), &msg, Message::MAX_TEXT_LEN, (-1 * Message::MAX_PRIORITY), MSG_NOERROR);
+	for(;;){
+		priority_msg_q.pop(msg);
 
-	printf("text : %s, priority : %d\n", msg.get_text().c_str(), msg.get_priority());
+		msg.print();
+	}
 
 	return 0;
 }

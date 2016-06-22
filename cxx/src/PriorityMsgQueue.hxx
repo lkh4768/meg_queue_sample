@@ -8,7 +8,6 @@
 #include <cerrno>
 #include <cstring>
 
-#include <string>
 #include <stdexcept>
 
 #include "Message.hxx"
@@ -19,12 +18,12 @@ class PriorityMsgQueue
 	private:
 		int id;
 		const key_t key;
-		const int mode;
+		const mode_t mode;
 	public:
 		PriorityMsgQueue();
 		void init();
-		void push(Message* msg);
-		void pop(Message& rev_msg);
+		void push(Message& msg);
+		void pop(Message& msg);
 		int get_id();
 };
 
